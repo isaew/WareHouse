@@ -93,19 +93,19 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -143,9 +143,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\comment.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\help.png" />
   </ItemGroup>
   <ItemGroup>
@@ -158,12 +155,6 @@
     <None Include="Resources\cog.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\database_refresh.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\database_go.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\chart_bar.png" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +165,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\page_white_go.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue-document-text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue-document-excel-csv.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue-document-pdf.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue-document-globe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\document-search-result.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mail--arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\drive-upload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\drive-download.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\photos1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
