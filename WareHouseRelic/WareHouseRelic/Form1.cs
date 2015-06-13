@@ -21,6 +21,9 @@ namespace WareHouseRelic
         {
             //Розвертывание первого узла
             treeView1.TopNode.Expand();
+
+            /*Coin c = new Coin();
+            //c.TestConnectToDb();*/
         }
 
         #region Обработчики строки меню
