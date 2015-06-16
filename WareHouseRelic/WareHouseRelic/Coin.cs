@@ -69,15 +69,49 @@ namespace WareHouseRelic
         /// <param name="age">Год чеканки</param>
         /// <param name="typeOfMetal">Метал монеты</param>
         /// <param name="letters">Буквенное обозначение монетного двора</param>
-        public void AddNewCoin(string name, int age, string typeOfMetal, string letters, string queryString)
+        public void AddNewCoin(string name, int age, string typeOfMetal, string letters)
         {
             string connectionString = Properties.Settings.Default.DatabaseConnectionString;
+            string queryString = "INSERT INTO CoinTable (ID, NameCoin, YearCoin, TypeMetal, Letters) values('7', '" + name + "', '" + age + "', '" + typeOfMetal + " ', '" + letters + " ')";
 
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
             SqlCommand cmd = new SqlCommand(queryString, con);
+
+            SqlParameter param = new SqlParameter();
+
+            param.ParameterName = "@Id";
+            param.Value = 7;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter();
+            param.ParameterName = "@NameCoin";
+            param.Value = name;
+            param.SqlDbType = SqlDbType.NText;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter();
+            param.ParameterName = "@YearCoin";
+            param.Value = age;
+            param.SqlDbType = SqlDbType.Int;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter();
+            param.ParameterName = "@TypeMetal";
+            param.Value = typeOfMetal;
+            param.SqlDbType = SqlDbType.VarChar;
+            cmd.Parameters.Add(param);
+
+            param = new SqlParameter();
+            param.ParameterName = "@Letters";
+            param.Value = queryString;
+            param.SqlDbType = SqlDbType.VarChar;
+            cmd.Parameters.Add(param);
+      
             cmd.ExecuteNonQuery();
             con.Close();
+            con.Dispose();
         }
 
         /// <summary>
@@ -89,14 +123,25 @@ namespace WareHouseRelic
         /// <param name="letters">Буквенное обозначение монетного двора</param>
         public void EditCoin(string name, int age, string typeOfMetal, string letters)
         {
-            throw new NotImplementedException();
+            string connectionString = Properties.Settings.Default.DatabaseConnectionString;
+            string queryString = " ";
+
+            SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
+            SqlCommand cmd = new SqlCommand(queryString, con);
         }
         /// <summary>
         /// Удаление записи о монете
         /// </summary>
         public void DeleteCoin()
         {
-            throw new NotImplementedException();
+            string connectionString = Properties.Settings.Default.DatabaseConnectionString;
+            string queryString = " ";
+
+            SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
+            SqlCommand cmd = new SqlCommand(queryString, con);
+
         }
 
         /// <summary>
@@ -104,10 +149,11 @@ namespace WareHouseRelic
         /// </summary>
         /// <param name="lv">Экземпляр ListVeiw в который будет происходить вывод базы данных</param>
         /// <param name="queryString">SQL - запрос на получение данных</param>
-        public void DataOutput(ListView lv, string queryString)
+        public void DataOutput(ListView lv)
         {
             lv.Items.Clear();
             string connectionString = Properties.Settings.Default.DatabaseConnectionString;
+            string queryString = "SELECT * FROM CoinTable";
 
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();

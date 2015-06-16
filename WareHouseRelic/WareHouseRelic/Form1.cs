@@ -23,9 +23,8 @@ namespace WareHouseRelic
 
             Coin c = new Coin();
             c.TestConnectToDb();
-            c.DataOutput(listView1, "SELECT * FROM CoinTable");
-            c.AddNewCoin("qwerty", 2000, "ytreq", "qazxsw", "INSERT INTO CoinTable (ID, NameCoin) values('6', 'Rublшл')");
-            c.DataOutput(listView1, "SELECT * FROM CoinTable");
+            c.DataOutput(listView1);
+            //c.AddNewCoin("qwerty", 2000, "ytreq", "qazxsw", "INSERT INTO CoinTable (ID, NameCoin, YearCoin, TypeMetal, Letters) values('7', 'Рубль', ' ', ' ', ' ')");
         }
 
         #region Обработчики строки меню
@@ -66,7 +65,7 @@ namespace WareHouseRelic
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void создатьРезевкуюКопиюToolStripMenuItem_Click(object sender, EventArgs e)
@@ -86,7 +85,9 @@ namespace WareHouseRelic
 
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FormSettings FSett = new FormSettings();
+            FSett.StartPosition = FormStartPosition.CenterParent;
+            FSett.ShowDialog();
         }
 
         private void просмотрСправкиToolStripMenuItem_Click(object sender, EventArgs e)
@@ -96,13 +97,62 @@ namespace WareHouseRelic
 
         private void отправитьОтзывToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FormSendMail FormSM = new FormSendMail();
+            FormSM.ShowDialog();
         }
 
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            FormAbout FAbout = new FormAbout();
+            FAbout.ShowDialog();
+        }
+        #endregion
+
+        #region Обработчики toolStrip
+        //Обработчик окна добавления
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            FormAddCoin fAddC = new FormAddCoin();
+            fAddC.StartPosition = FormStartPosition.CenterParent;
+            fAddC.Owner = this;
+            fAddC.ShowDialog();
+        }
+
+        //Обработчик окна редактирогвания
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count > 0)
+            {
+                FormEditCoin fEitC = new FormEditCoin();
+                fEitC.StartPosition = FormStartPosition.CenterParent;
+                fEitC.Owner = this;
+                fEitC.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Не выбран елемент для редактирования");
+            }
+        }
+
+        //Обработчик удаления записи
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count > 0)
+            {
+                listView1.Items.Remove(listView1.Items[listView1.SelectedIndices[0]]);
+            }
+            else
+            {
+                MessageBox.Show("Не выбран елемент для удаления");
+            }
+        }
+
+        //Обрамотчик окна карты
+        private void toolStripButton5_Click(object sender, EventArgs e)
+        {
 
         }
         #endregion
+
     }
 }
