@@ -34,7 +34,7 @@ namespace WareHouseRelic
                 main.listView1.Items[main.listView1.Items.Count - 1].SubItems.Add(textBox2.Text);
                 main.listView1.Items[main.listView1.Items.Count - 1].SubItems.Add(comboBox1.Text);
                 main.listView1.Items[main.listView1.Items.Count - 1].SubItems.Add(textBox3.Text);
-            }       
+            }
             this.Close();
         }
     }

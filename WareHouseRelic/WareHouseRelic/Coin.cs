@@ -72,13 +72,13 @@ namespace WareHouseRelic
         public void AddNewCoin(string name, int age, string typeOfMetal, string letters)
         {
             string connectionString = Properties.Settings.Default.DatabaseConnectionString;
-            string queryString = "INSERT INTO CoinTable (ID, NameCoin, YearCoin, TypeMetal, Letters) values('7', '" + name + "', '" + age + "', '" + typeOfMetal + " ', '" + letters + " ')";
+            string queryString = "INSERT INTO CoinTable (ID, NameCoin, YearCoin, TypeMetal, Letters) values('717', '" + name + "', '" + age + "', '" + typeOfMetal + " ', '" + letters + " ')";
 
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
             SqlCommand cmd = new SqlCommand(queryString, con);
 
-            SqlParameter param = new SqlParameter();
+            /*SqlParameter param = new SqlParameter();
 
             param.ParameterName = "@Id";
             param.Value = 7;
@@ -107,7 +107,7 @@ namespace WareHouseRelic
             param.ParameterName = "@Letters";
             param.Value = queryString;
             param.SqlDbType = SqlDbType.VarChar;
-            cmd.Parameters.Add(param);
+            cmd.Parameters.Add(param);*/
       
             cmd.ExecuteNonQuery();
             con.Close();

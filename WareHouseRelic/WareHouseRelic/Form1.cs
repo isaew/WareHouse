@@ -22,9 +22,7 @@ namespace WareHouseRelic
             treeView1.TopNode.Expand(); //Розвертывание первого узла
 
             Coin c = new Coin();
-            c.TestConnectToDb();
             c.DataOutput(listView1);
-            //c.AddNewCoin("qwerty", 2000, "ytreq", "qazxsw", "INSERT INTO CoinTable (ID, NameCoin, YearCoin, TypeMetal, Letters) values('7', 'Рубль', ' ', ' ', ' ')");
         }
 
         #region Обработчики строки меню
@@ -154,5 +152,9 @@ namespace WareHouseRelic
         }
         #endregion
 
+        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            //MessageBox.Show(Convert.ToString(treeView1.));
+        }
     }
 }
