@@ -62,6 +62,7 @@ namespace WareHouseRelic
             System.Windows.Forms.MessageBox.Show("Тестовое подключение к базе данных успешно");
             cn.Close();
         }
+        
         /// <summary>
         /// Добавление новой записи о монете
         /// </summary>
@@ -69,10 +70,10 @@ namespace WareHouseRelic
         /// <param name="age">Год чеканки</param>
         /// <param name="typeOfMetal">Метал монеты</param>
         /// <param name="letters">Буквенное обозначение монетного двора</param>
-        public void AddNewCoin(string name, int age, string typeOfMetal, string letters)
+        public void AddNewCoin(string name, string year, string typeOfMetal, string letters)
         {
             string connectionString = Properties.Settings.Default.DatabaseConnectionString;
-            string queryString = "INSERT INTO CoinTable (ID, NameCoin, YearCoin, TypeMetal, Letters) values('717', '" + name + "', '" + age + "', '" + typeOfMetal + " ', '" + letters + " ')";
+            string queryString = "INSERT INTO CoinTable (ID, NameCoin, YearCoin, TypeMetal, Letters) values('717', '" + name + "', '" + year + "', '" + typeOfMetal + " ', '" + letters + " ')";
 
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
@@ -118,10 +119,10 @@ namespace WareHouseRelic
         /// Редактирование записи о экспонате
         /// </summary>
         /// <param name="name">Название монеты</param>
-        /// <param name="age">Год чеканки</param>
+        /// <param name="year">Год чеканки</param>
         /// <param name="typeOfMetal">Метал монеты</param>
         /// <param name="letters">Буквенное обозначение монетного двора</param>
-        public void EditCoin(string name, int age, string typeOfMetal, string letters)
+        public void EditCoin(string name, int year, string typeOfMetal, string letters)
         {
             string connectionString = Properties.Settings.Default.DatabaseConnectionString;
             string queryString = " ";
@@ -130,6 +131,7 @@ namespace WareHouseRelic
             con.Open();
             SqlCommand cmd = new SqlCommand(queryString, con);
         }
+        
         /// <summary>
         /// Удаление записи о монете
         /// </summary>

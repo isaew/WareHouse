@@ -128,7 +128,7 @@ namespace WareHouseRelic
             }
             else
             {
-                MessageBox.Show("Не выбран елемент для редактирования");
+                MessageBox.Show("Не выбран елемент для редактирования", "Внимание");
             }
         }
 
@@ -141,7 +141,7 @@ namespace WareHouseRelic
             }
             else
             {
-                MessageBox.Show("Не выбран елемент для удаления");
+                MessageBox.Show("Не выбран елемент для удаления", "Внимание");
             }
         }
 
