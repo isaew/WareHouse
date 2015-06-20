@@ -78,7 +78,7 @@ namespace WareHouseRelic
 
         private void статистикаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)

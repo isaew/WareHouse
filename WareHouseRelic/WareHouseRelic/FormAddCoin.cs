@@ -37,12 +37,28 @@ namespace WareHouseRelic
                     main.listView1.Items[main.listView1.Items.Count - 1].SubItems.Add(comboBox1.Text);
                     main.listView1.Items[main.listView1.Items.Count - 1].SubItems.Add(textBox3.Text);
                 }
+
                 this.Close();
             }                                           
             else
             {
-                MessageBox.Show("Поля для ввода не заполнены.", "Внимание");
+                MessageBox.Show("Поля для ввода не заполнены", "Внимание");
             }
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            OutText.EnterLettersAndNumbers(e);
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            OutText.EnterOnlyNumbers(e);
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            OutText.EnterOnlyLettersCyrillicAlphabet(e);
         }
     }
 }
