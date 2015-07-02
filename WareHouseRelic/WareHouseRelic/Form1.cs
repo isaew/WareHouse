@@ -21,8 +21,10 @@ namespace WareHouseRelic
         {
             treeView1.TopNode.Expand(); //Розвертывание первого узла
 
-            Coin c = new Coin();
-            c.DataOutput(listView1);
+            ClassCoins c = new ClassCoins();
+
+            //c.TestConnectToDb();
+            c.Getting(listView1);
         }
 
         #region Обработчики строки меню
@@ -116,7 +118,7 @@ namespace WareHouseRelic
             fAddC.ShowDialog();
         }
 
-        //Обработчик окна редактирогвания
+        //Обработчик окна редактирования
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedIndices.Count > 0)
@@ -137,6 +139,9 @@ namespace WareHouseRelic
         {
             if (listView1.SelectedIndices.Count > 0)
             {
+                ClassCoins c = new ClassCoins();
+                c.DeleteCoin(Convert.ToInt16(listView1.Items[listView1.SelectedIndices[0]].SubItems[4].Text));
+
                 listView1.Items.Remove(listView1.Items[listView1.SelectedIndices[0]]);
             }
             else
@@ -151,10 +156,5 @@ namespace WareHouseRelic
 
         }
         #endregion
-
-        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            //MessageBox.Show(Convert.ToString(treeView1.));
-        }
     }
 }

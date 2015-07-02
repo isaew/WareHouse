@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace WareHouseRelic
 {
-    static class OutText
+    static class ClassOutText
     {
         /// <summary>
         /// Проверка на ввод цифр 0..9

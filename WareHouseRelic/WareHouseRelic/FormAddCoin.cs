@@ -26,7 +26,7 @@ namespace WareHouseRelic
         {
             if (textBox1.Text != "")
             {
-                Coin c = new Coin();
+                ClassCoins c = new ClassCoins();
                 c.AddNewCoin(textBox1.Text, textBox2.Text, comboBox1.Text, textBox3.Text);
 
                 Form1 main = this.Owner as Form1;
@@ -48,17 +48,17 @@ namespace WareHouseRelic
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OutText.EnterLettersAndNumbers(e);
+            ClassOutText.EnterLettersAndNumbers(e);
         }
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OutText.EnterOnlyNumbers(e);
+            ClassOutText.EnterOnlyNumbers(e);
         }
 
         private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OutText.EnterOnlyLettersCyrillicAlphabet(e);
+            ClassOutText.EnterOnlyLettersCyrillicAlphabet(e);
         }
     }
 }
