@@ -45,7 +45,7 @@ namespace WareHouseRelic
         private void вToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string exportFileName = "ExportFileTXT.txt";
-            StreamWriter sw = new StreamWriter(exportFileName, true);
+            StreamWriter sw = new StreamWriter(exportFileName, true, Encoding.UTF8);
             for (int i = 0; i < listView1.Items.Count; i++)
             {
                 sw.Write(listView1.Items[i].Text + " ");
@@ -62,7 +62,6 @@ namespace WareHouseRelic
         {
 
         }
-
 
         private void экспортВExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -82,7 +81,53 @@ namespace WareHouseRelic
 
         private void экспортВHTMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string exportFileName = "ExportFileHTML " + DateTime.Now.ToString("dd MMMM yyyy") + ".html";
 
+            if (File.Exists(exportFileName))
+            {
+                if (MessageBox.Show("Такой файл уже существует, желаете его перезаписать?", "Файл существует", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    StreamWriter sw = new StreamWriter(exportFileName, false, Encoding.UTF8);
+
+                    sw.Write("<html><head><meta http-equiv ='Content-Type' content ='text/html; charset=utf-8'>");
+                    sw.Write("<title>Экспортированые данные WareHouseRelic</title></head><body><p>Данные экспортированы за " + DateTime.Now.ToString("dd MMMM yyyy") + " года.</p>");
+                    sw.Write("<table border='1' width='70%' cellpadding='5' align='center'>");
+                    sw.Write("<tr><th>Название монеты</th><th>Год выпуска</th><th>Тип метала</th><th>Монетный двор</th></tr>");
+
+                    for (int i = 0; i < listView1.Items.Count; i++)
+                    {
+                        sw.Write("<tr><td>" + listView1.Items[i].Text + "</td>");
+                        sw.Write("<td>" + listView1.Items[i].SubItems[1].Text + "</td>");
+                        sw.Write("<td>" + listView1.Items[i].SubItems[2].Text + "</td>");
+                        sw.Write("<td>" + listView1.Items[i].SubItems[3].Text + "</td></tr>");
+                    }
+                    sw.Write("</table></body></html>");
+
+                    sw.Close();
+                    MessageBox.Show("Файл перезаписан");
+                }
+            }
+            else
+            {
+                StreamWriter sw = new StreamWriter(exportFileName, true, Encoding.UTF8);
+
+                sw.Write("<html><head><meta http-equiv ='Content-Type' content ='text/html; charset=utf-8'>");
+                sw.Write("<title>Экспортированые данные WareHouseRelic</title></head><body><p>Данные экспортированы за " + DateTime.Now.ToString("dd MMMM yyyy") + " года.</p>");
+                sw.Write("<table border='1' width='70%' cellpadding='5' align='center'>");
+                sw.Write("<tr><th>Название монеты</th><th>Год выпуска</th><th>Тип метала</th><th>Монетный двор</th></tr>");
+
+                for (int i = 0; i < listView1.Items.Count; i++)
+                {
+                    sw.Write("<tr><td>" + listView1.Items[i].Text + "</td>");
+                    sw.Write("<td>" + listView1.Items[i].SubItems[1].Text + "</td>");
+                    sw.Write("<td>" + listView1.Items[i].SubItems[2].Text + "</td>");
+                    sw.Write("<td>" + listView1.Items[i].SubItems[3].Text + "</td></tr>");
+                }
+                sw.Write("</table></body></html>");
+
+                sw.Close();
+                MessageBox.Show("Экспорт в файл *.html завершен");
+            }
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
