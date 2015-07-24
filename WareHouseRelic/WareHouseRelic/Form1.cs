@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,8 +23,6 @@ namespace WareHouseRelic
             treeView1.TopNode.Expand(); //Розвертывание первого узла
 
             ClassCoins c = new ClassCoins();
-
-            //c.TestConnectToDb();
             c.Getting(listView1);
         }
 
@@ -45,7 +44,18 @@ namespace WareHouseRelic
 
         private void вToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string exportFileName = "ExportFileTXT.txt";
+            StreamWriter sw = new StreamWriter(exportFileName, true);
+            for (int i = 0; i < listView1.Items.Count; i++)
+            {
+                sw.Write(listView1.Items[i].Text + " ");
+                sw.Write(listView1.Items[i].SubItems[1].Text + " ");
+                sw.Write(listView1.Items[i].SubItems[2].Text + " ");
+                sw.WriteLine(listView1.Items[i].SubItems[3].Text + " ");
+            }
+            sw.Close();
 
+            MessageBox.Show("Экспорт в файл *.txt завершен");
         }
 
         private void экспортВPDFToolStripMenuItem_Click(object sender, EventArgs e)
@@ -53,9 +63,21 @@ namespace WareHouseRelic
 
         }
 
+
         private void экспортВExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string exportFileName = "ExportFileCSV.csv";
+            StreamWriter sw = new StreamWriter(exportFileName, true, Encoding.UTF8);
+            for (int i = 0; i < listView1.Items.Count; i++)
+            {
+                sw.Write(listView1.Items[i].Text + ";");
+                sw.Write(listView1.Items[i].SubItems[1].Text + ";");
+                sw.Write(listView1.Items[i].SubItems[2].Text + ";");
+                sw.WriteLine(listView1.Items[i].SubItems[3].Text + ";");
+            }
+            sw.Close();
 
+            MessageBox.Show("Экспорт в файл *.csv завершен");
         }
 
         private void экспортВHTMLToolStripMenuItem_Click(object sender, EventArgs e)
@@ -154,6 +176,14 @@ namespace WareHouseRelic
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
 
+        }
+        #endregion
+
+        #region Обработчики событий компонентов формы
+        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            ClassCoins c = new ClassCoins();
+            c.Getting(listView1, Convert.ToString(e.Node.Tag));
         }
         #endregion
     }

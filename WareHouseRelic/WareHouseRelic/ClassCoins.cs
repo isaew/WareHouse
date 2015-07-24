@@ -139,7 +139,6 @@ namespace WareHouseRelic
         /// Вывод базы данных в ListVeiw
         /// </summary>
         /// <param name="lv">Экземпляр ListVeiw в который будет происходить вывод базы данных</param>
-        /// <param name="queryString">SQL - запрос на получение данных</param>
         public void Getting(ListView lv)
         {
             lv.Items.Clear();
@@ -167,27 +166,41 @@ namespace WareHouseRelic
                 }
             }
             connection.Close();
+            connection.Dispose();
+        }
 
-            /*string queryString = "SELECT * FROM 'example';";
+        /// <summary>
+        /// Вывод базы данных в ListVeiw
+        /// </summary>
+        /// <param name="lv">Экземпляр ListVeiw в который будет происходить вывод базы данных</param>
+        /// <param name="queryString">SQL - запрос на получение данных</param>
+        public void Getting(ListView lv, string queryString)
+        {
+            lv.Items.Clear();
+
+            string databaseName = @"..\..\cyber1.db";
+
             SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
             connection.Open();
             SQLiteCommand command = new SQLiteCommand(queryString, connection);
             SQLiteDataReader reader = command.ExecuteReader();
 
-            foreach (DbDataRecord record in reader)
+            if (reader.HasRows)
             {
                 string[] str = new string[5];
- 
-                str[0] = record["name"].ToString();
-                str[1] = record["year"].ToString();
-                str[2] = record["type"].ToString();
-                str[3] = record["letters"].ToString();
-                str[4] = record["id"].ToString();
+                while (reader.Read())
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        str[j] = Convert.ToString(reader[j]);
+                    }
 
-                ListViewItem lvi = new ListViewItem(str);
-                lv.Items.Add(lvi);
+                    ListViewItem lvi = new ListViewItem(str);
+                    lv.Items.Add(lvi);
+                }
             }
-            connection.Close();*/
+            connection.Close();
+            connection.Dispose();
         }
         #endregion
     }

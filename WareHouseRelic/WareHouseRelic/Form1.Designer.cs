@@ -430,55 +430,76 @@
             // 
             // treeView1
             // 
+            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.treeView1.Indent = 10;
             this.treeView1.LineColor = System.Drawing.Color.DarkCyan;
             this.treeView1.Location = new System.Drawing.Point(12, 52);
             this.treeView1.Name = "treeView1";
             treeNode1.Name = "Узел11";
+            treeNode1.Tag = "SELECT * FROM \'example\' WHERE year > \'1682\' AND year < \'1725\';";
             treeNode1.Text = "Петр I             (1682-1725)";
             treeNode2.Name = "Узел12";
+            treeNode2.Tag = "SELECT * FROM \'example\' WHERE year > \'1725\' AND year < \'1727\';";
             treeNode2.Text = "Екатерина I   (1725-1727)";
             treeNode3.Name = "Узел13";
+            treeNode3.Tag = "SELECT * FROM \'example\' WHERE year > \'1727\' AND year < \'1730\';";
             treeNode3.Text = "Петр II            (1727-1730)";
             treeNode4.Name = "Узел14";
+            treeNode4.Tag = "SELECT * FROM \'example\' WHERE year > \'1730\' AND year < \'1740\';";
             treeNode4.Text = "Анна               (1730-1740)";
             treeNode5.Name = "Узел15";
+            treeNode5.Tag = "SELECT * FROM \'example\' WHERE year > \'1740\' AND year < \'1741\';";
             treeNode5.Text = "Иван VI          (1740-1741)";
             treeNode6.Name = "Узел16";
+            treeNode6.Tag = "SELECT * FROM \'example\' WHERE year > \'1741\' AND year < \'1761\';";
             treeNode6.Text = "Елизавета      (1741-1761)";
             treeNode7.Name = "Узел17";
+            treeNode7.Tag = "SELECT * FROM \'example\' WHERE year > \'1761\' AND year < \'1762\';";
             treeNode7.Text = "Петр III           (1761-1762)";
             treeNode8.Name = "Узел18";
+            treeNode8.Tag = "SELECT * FROM \'example\' WHERE year > \'1762\' AND year < \'1796\';";
             treeNode8.Text = "Екатерина II  (1762-1796)";
             treeNode9.Name = "Узел19";
+            treeNode9.Tag = "SELECT * FROM \'example\' WHERE year > \'1796\' AND year < \'1801\';";
             treeNode9.Text = "Павел I           (1796-1801)";
             treeNode10.Name = "Узел20";
+            treeNode10.Tag = "SELECT * FROM \'example\' WHERE year > \'1801\' AND year < \'1825\';";
             treeNode10.Text = "Александр I   (1801-1825)";
             treeNode11.Name = "Узел21";
+            treeNode11.Tag = "SELECT * FROM \'example\' WHERE year > \'1825\' AND year < \'1855\';";
             treeNode11.Text = "Николай I       (1825-1855)";
             treeNode12.Name = "Узел22";
+            treeNode12.Tag = "SELECT * FROM \'example\' WHERE year > \'1855\' AND year < \'1881\';";
             treeNode12.Text = "Александр II  (1855-1881)";
             treeNode13.Name = "Узел23";
+            treeNode13.Tag = "SELECT * FROM \'example\' WHERE year > \'1881\' AND year < \'1894\';";
             treeNode13.Text = "Александр III (1881-1894)";
             treeNode14.Name = "Узел24";
+            treeNode14.Tag = "SELECT * FROM \'example\' WHERE year > \'1894\' AND year < \'1917\';";
             treeNode14.Text = "Николай II      (1894-1917)";
             treeNode15.Name = "Узел1";
+            treeNode15.Tag = "SELECT * FROM \'example\' WHERE year > \'1682\' AND year < \'1917\';";
             treeNode15.Text = "Монеты царской россии";
             treeNode15.ToolTipText = "С 1682 года по 1917 год";
             treeNode16.Name = "Узел2";
+            treeNode16.Tag = "SELECT * FROM \'example\' WHERE year > \'1921\' AND year < \'1991\';";
             treeNode16.Text = "Монеты РСФСР и СССР";
             treeNode16.ToolTipText = "С 1921 года по 1991 год";
             treeNode17.Name = "Узел3";
+            treeNode17.Tag = "SELECT * FROM \'example\' WHERE year > \'1991\';";
             treeNode17.Text = "Современные монеты";
             treeNode17.ToolTipText = "С 1991 года";
             treeNode18.Checked = true;
             treeNode18.Name = "Узел0";
+            treeNode18.Tag = "SELECT * FROM \'example\';";
             treeNode18.Text = "Все монеты";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode18});
             this.treeView1.ShowNodeToolTips = true;
             this.treeView1.Size = new System.Drawing.Size(175, 292);
             this.treeView1.TabIndex = 5;
+            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             // 
             // pictureBox2
             // 
