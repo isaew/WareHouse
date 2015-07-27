@@ -17,6 +17,13 @@ namespace WareHouseRelic
             InitializeComponent();
         }
 
+        private void FormSettings_Load(object sender, EventArgs e)
+        {
+            textBox1.Text = Properties.Settings.Default.PathDatabase;
+            textBox2.Text = Properties.Settings.Default.PathBackupDatabase;
+            textBox3.Text = Properties.Settings.Default.PathExportFile;
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -24,7 +31,60 @@ namespace WareHouseRelic
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.PathDatabase = textBox1.Text;
+            Properties.Settings.Default.PathBackupDatabase = textBox2.Text;
+            Properties.Settings.Default.PathExportFile = textBox3.Text;
+            Properties.Settings.Default.Save();
+
             this.Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog Odial = new OpenFileDialog();
+
+            Odial.InitialDirectory = @"..\..\cyber1.db";
+            Odial.Filter = "All files (*.*)|*.*|База данных SqlIte (*.db)|*.db";
+            Odial.FilterIndex = 2;
+            Odial.RestoreDirectory = true;
+            Odial.ShowDialog();
+
+            if(Odial.FileName != "")
+            {
+                textBox1.Text = Odial.FileName;
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog Fdial = new FolderBrowserDialog();
+
+            Fdial.RootFolder = Environment.SpecialFolder.UserProfile;
+            Fdial.ShowNewFolderButton = true;
+            Fdial.ShowDialog();
+
+            MessageBox.Show(Fdial.SelectedPath);
+
+            if (Fdial.SelectedPath != "")
+            {
+                textBox2.Text = Fdial.SelectedPath;
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog Fdial = new FolderBrowserDialog();
+
+            Fdial.RootFolder = Environment.SpecialFolder.UserProfile;
+            Fdial.ShowNewFolderButton = true;
+            Fdial.ShowDialog();
+
+            MessageBox.Show(Fdial.SelectedPath);
+
+            if (Fdial.SelectedPath != "")
+            {
+                textBox3.Text = Fdial.SelectedPath;
+            }
         }
     }
 }

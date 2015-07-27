@@ -56,7 +56,9 @@ namespace WareHouseRelic
         /// </summary>
         public void TestConnectToDb()
         {
-            string databaseName = @"..\..\cyber1.db";
+            
+            //string databaseName = @"..\..\cyber1.db";
+            string databaseName = Properties.Settings.Default.PathDatabase;
 
             SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
             connection.Open();
@@ -73,7 +75,8 @@ namespace WareHouseRelic
         /// <param name="letters">Буквенное обозначение монетного двора</param>
         public void AddNewCoin(string name, string year, string typeOfMetal, string letters)
         {
-            string databaseName = @"..\..\cyber1.db";
+            string databaseName = Properties.Settings.Default.PathDatabase;
+            //string databaseName = @"..\..\cyber1.db";
             string queryString;
 
             if (year == "")
@@ -101,7 +104,8 @@ namespace WareHouseRelic
         /// <param name="letters">Буквенное обозначение монетного двора</param>
         public void EditCoin(string name, string year, string typeOfMetal, string letters, int id)
         {
-            string databaseName = @"..\..\cyber1.db";
+            //string databaseName = @"..\..\cyber1.db";
+            string databaseName = Properties.Settings.Default.PathDatabase;
             string queryString;
 
             if (year == "")
@@ -126,8 +130,10 @@ namespace WareHouseRelic
         /// <param name="name">Идентификатор удаляемой записи</param>
         public void DeleteCoin(int id)
         {
-            string databaseName = @"..\..\cyber1.db";
+            string databaseName = Properties.Settings.Default.PathDatabase;
+            //string databaseName = @"..\..\cyber1.db";
             string queryString = "delete from example where Id = '" + id + "';";
+
             SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
             connection.Open();
             SQLiteCommand command = new SQLiteCommand(queryString, connection);
@@ -143,7 +149,8 @@ namespace WareHouseRelic
         {
             lv.Items.Clear();
 
-            string databaseName = @"..\..\cyber1.db";
+            string databaseName = Properties.Settings.Default.PathDatabase;
+            //string databaseName = @"..\..\cyber1.db";
             string queryString = "SELECT * FROM 'example';";
 
             SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
@@ -178,7 +185,8 @@ namespace WareHouseRelic
         {
             lv.Items.Clear();
 
-            string databaseName = @"..\..\cyber1.db";
+            string databaseName = Properties.Settings.Default.PathDatabase;
+            //string databaseName = @"..\..\cyber1.db";
 
             SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
             connection.Open();

@@ -23,7 +23,40 @@ namespace WareHouseRelic.Properties {
             }
         }
         
-
-
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PathBackupDatabase {
+            get {
+                return ((string)(this["PathBackupDatabase"]));
+            }
+            set {
+                this["PathBackupDatabase"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PathDatabase {
+            get {
+                return ((string)(this["PathDatabase"]));
+            }
+            set {
+                this["PathDatabase"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PathExportFile {
+            get {
+                return ((string)(this["PathExportFile"]));
+            }
+            set {
+                this["PathExportFile"] = value;
+            }
+        }
     }
 }

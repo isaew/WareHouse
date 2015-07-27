@@ -137,17 +137,47 @@ namespace WareHouseRelic
 
         private void создатьРезевкуюКопиюToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (File.Exists(Properties.Settings.Default.PathBackupDatabase + '\\' + "Backup_" + DateTime.Now.ToString("dd MMMM yyyy") + ".db"))
+            {
+                if (MessageBox.Show("Такой файл уже существует, желаете его перезаписать?", "Файл существует", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    File.Copy(Properties.Settings.Default.PathDatabase, Properties.Settings.Default.PathBackupDatabase + '\\' + "Backup_" + DateTime.Now.ToString("dd MMMM yyyy") + ".db", true);
+                    MessageBox.Show("Создана резервная копия базы данных", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+            }
+            else
+            {
+                File.Copy(Properties.Settings.Default.PathDatabase, Properties.Settings.Default.PathBackupDatabase + '\\' + "Backup_" + DateTime.Now.ToString("dd MMMM yyyy") + ".db", true);
+                MessageBox.Show("Создана резервная копия базы данных", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
         }
 
         private void востановитьРезервнуюКопиюToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            OpenFileDialog Odial = new OpenFileDialog();
 
+            Odial.InitialDirectory = Properties.Settings.Default.PathBackupDatabase;
+            Odial.Filter = "All files (*.*)|*.*|База данных SqlIte (*.db)|*.db";
+            Odial.FilterIndex = 2;
+            Odial.RestoreDirectory = true;
+            Odial.ShowDialog();
+
+            if (Odial.FileName != "")
+            {
+                File.Copy(Odial.FileName, Properties.Settings.Default.PathDatabase, true);
+                MessageBox.Show("База данных востановлена", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            else 
+            {
+                MessageBox.Show("Файл не был выбран", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void статистикаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            FormStatistics FStat = new FormStatistics();
+            FStat.StartPosition = FormStartPosition.CenterParent;
+            FStat.ShowDialog();
         }
 
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
