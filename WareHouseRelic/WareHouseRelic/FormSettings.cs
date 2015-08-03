@@ -22,6 +22,13 @@ namespace WareHouseRelic
             textBox1.Text = Properties.Settings.Default.PathDatabase;
             textBox2.Text = Properties.Settings.Default.PathBackupDatabase;
             textBox3.Text = Properties.Settings.Default.PathExportFile;
+            checkBox1.Checked = Properties.Settings.Default.BackupCopy;
+            textBox4.Text = Convert.ToString(Properties.Settings.Default.TimeBetweenBackups);
+
+            if (checkBox1.Checked)
+            {
+                textBox4.Enabled = true;
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -34,6 +41,8 @@ namespace WareHouseRelic
             Properties.Settings.Default.PathDatabase = textBox1.Text;
             Properties.Settings.Default.PathBackupDatabase = textBox2.Text;
             Properties.Settings.Default.PathExportFile = textBox3.Text;
+            Properties.Settings.Default.BackupCopy = checkBox1.Checked;
+            Properties.Settings.Default.TimeBetweenBackups = Convert.ToInt16(textBox4.Text);
             Properties.Settings.Default.Save();
 
             this.Close();

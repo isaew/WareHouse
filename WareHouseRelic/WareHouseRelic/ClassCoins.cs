@@ -210,6 +210,30 @@ namespace WareHouseRelic
             connection.Close();
             connection.Dispose();
         }
+
+        public string GettingStatistics(string queryString)
+        {
+            string databaseName = Properties.Settings.Default.PathDatabase;
+            //string queryString = "SELECT COUNT(id) FROM 'example';";
+            string resulQuery = "0";
+
+            SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
+            connection.Open();
+            SQLiteCommand command = new SQLiteCommand(queryString, connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    resulQuery = Convert.ToString(reader[0]);
+                }
+            }
+            connection.Close();
+            connection.Dispose();
+
+            return resulQuery;
+        }
         #endregion
     }
 } 

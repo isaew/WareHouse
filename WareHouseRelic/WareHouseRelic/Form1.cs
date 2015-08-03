@@ -22,8 +22,24 @@ namespace WareHouseRelic
         {
             treeView1.TopNode.Expand(); //Розвертывание первого узла
 
-            ClassCoins c = new ClassCoins();
-            c.Getting(listView1);
+            ClassCoins c = new ClassCoins(); //Выгрузка БД в основное окно программы
+            c.Getting(listView1);            //
+
+            //проверка даты для необходимости создания бекапа
+            if (Properties.Settings.Default.BackupCopy)
+            {
+                TimeSpan tSpan1 = new TimeSpan(Properties.Settings.Default.TimeBetweenBackups, 0, 0, 0);
+                TimeSpan tSpan = DateTime.Now.Date - Properties.Settings.Default.LastBackup.Date;
+
+                if (tSpan1 < tSpan)
+                {
+                    File.Copy(Properties.Settings.Default.PathDatabase, Properties.Settings.Default.PathBackupDatabase + '\\' + "Auto_Backup_" + DateTime.Now.ToString("dd MMMM yyyy") + ".db", true);
+                    Properties.Settings.Default.LastBackup = DateTime.Now;
+                    Properties.Settings.Default.Save();
+
+                    MessageBox.Show("Test");
+                }
+            }
         }
 
         #region Обработчики строки меню

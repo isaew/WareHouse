@@ -73,24 +73,25 @@ namespace WareHouseRelic.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int PeriodOfBackup {
+            get {
+                return ((int)(this["PeriodOfBackup"]));
+            }
+            set {
+                this["PeriodOfBackup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2015-07-23")]
         public global::System.DateTime LastBackup {
             get {
                 return ((global::System.DateTime)(this["LastBackup"]));
             }
             set {
                 this["LastBackup"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int TimeBetweenBackups {
-            get {
-                return ((int)(this["TimeBetweenBackups"]));
-            }
-            set {
-                this["TimeBetweenBackups"] = value;
             }
         }
     }

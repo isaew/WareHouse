@@ -21,5 +21,14 @@ namespace WareHouseRelic
         {
             this.Close();
         }
+
+        private void FormStatistics_Load(object sender, EventArgs e)
+        {
+            ClassCoins c = new ClassCoins();
+            label2.Text = c.GettingStatistics("SELECT COUNT(id) FROM 'example';");
+            label4.Text = c.GettingStatistics("SELECT COUNT(id) FROM 'example' WHERE year > '1682' AND year < '1917';");
+            label6.Text = c.GettingStatistics("SELECT COUNT(id) FROM 'example' WHERE year > '1921' AND year < '1991';");
+            label8.Text = c.GettingStatistics("SELECT COUNT(id) FROM 'example'  WHERE year > '1991';");
+        }
     }
 }
