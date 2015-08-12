@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +60,63 @@ namespace WareHouseRelic
         private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
         {
             ClassOutText.EnterOnlyLettersCyrillicAlphabet(e);
+        }
+
+        //Обработчик выбора 1 фотографии
+        private void button3_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog oDialog = new OpenFileDialog();
+            oDialog.Filter = "Изображение (*.jpeg, *.jpg , *.png)|*.jpeg; *.jpg; *.png";
+
+            if (oDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                int NewWidth = 200;
+                int MaxHeight = 200;
+
+                System.Drawing.Image FullSizeImage = System.Drawing.Image.FromFile(oDialog.FileName);
+                if (FullSizeImage.Width <= NewWidth)
+                {
+                    NewWidth = FullSizeImage.Width;
+                }
+                int NewHeight = FullSizeImage.Height * NewWidth / FullSizeImage.Width;
+                if (NewHeight > MaxHeight)
+                {
+                    NewWidth = FullSizeImage.Width * MaxHeight / FullSizeImage.Height;
+                    NewHeight = MaxHeight;
+                }
+                pictureBox1.Image = FullSizeImage.GetThumbnailImage(NewWidth, NewHeight, null, IntPtr.Zero);
+                FullSizeImage.Dispose();
+                ///////////////////////////////////
+
+
+            }
+        }
+
+        //Обработчик выбора 2 фотографии
+        private void button4_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog oDialog = new OpenFileDialog();
+            oDialog.Filter = "Изображение (*.jpeg, *.jpg , *.png)|*.jpeg; *.jpg; *.png";
+
+            if (oDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                int NewWidth = 200;
+                int MaxHeight = 200;
+
+                System.Drawing.Image FullSizeImage = System.Drawing.Image.FromFile(oDialog.FileName);
+                if (FullSizeImage.Width <= NewWidth)
+                {
+                    NewWidth = FullSizeImage.Width;
+                }
+                int NewHeight = FullSizeImage.Height * NewWidth / FullSizeImage.Width;
+                if (NewHeight > MaxHeight)
+                {
+                    NewWidth = FullSizeImage.Width * MaxHeight / FullSizeImage.Height;
+                    NewHeight = MaxHeight;
+                }
+                pictureBox2.Image = FullSizeImage.GetThumbnailImage(NewWidth, NewHeight, null, IntPtr.Zero);
+                FullSizeImage.Dispose();
+            }
         }
     }
 }

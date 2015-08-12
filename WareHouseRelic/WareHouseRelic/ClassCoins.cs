@@ -76,7 +76,6 @@ namespace WareHouseRelic
         public void AddNewCoin(string name, string year, string typeOfMetal, string letters)
         {
             string databaseName = Properties.Settings.Default.PathDatabase;
-            //string databaseName = @"..\..\cyber1.db";
             string queryString;
 
             if (year == "")
@@ -89,8 +88,9 @@ namespace WareHouseRelic
             }
 
             SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
-            connection.Open();
             SQLiteCommand command = new SQLiteCommand(queryString, connection);
+
+            connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
         }

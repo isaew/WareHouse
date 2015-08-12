@@ -45,6 +45,7 @@ namespace WareHouseRelic
             Properties.Settings.Default.TimeBetweenBackups = Convert.ToInt16(textBox4.Text);
             Properties.Settings.Default.Save();
 
+            
             this.Close();
         }
 

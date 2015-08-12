@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System.Diagnostics;
 
 namespace WareHouseRelic
 {
@@ -20,6 +23,11 @@ namespace WareHouseRelic
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            gMapControl1.DragButton = MouseButtons.Left;
+            gMapControl1.MapProvider = GMap.NET.MapProviders.GMapProviders.GoogleMap;
+            gMapControl1.Position = new GMap.NET.PointLatLng(49.8240914, 34.5370183);
+            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
+            
             treeView1.TopNode.Expand(); //Розвертывание первого узла
 
             ClassCoins c = new ClassCoins(); //Выгрузка БД в основное окно программы
@@ -77,6 +85,95 @@ namespace WareHouseRelic
         private void экспортВPDFToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            string exportFileName = "ExportFilePDF " + DateTime.Now.ToString("dd MMMM yyyy") + ".pdf";
+
+            if (File.Exists(exportFileName))
+            {
+                if (MessageBox.Show("Такой файл уже существует, желаете его перезаписать?", "Файл существует", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    string ttf = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "ARIAL.TTF");
+                    var baseFont = BaseFont.CreateFont(ttf, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+                    var font = new iTextSharp.text.Font(baseFont, iTextSharp.text.Font.DEFAULTSIZE, iTextSharp.text.Font.NORMAL);
+                    
+                    using (var document = new Document())
+                    using (var stream = new FileStream(exportFileName, FileMode.Create))
+                    {
+                        document.SetPageSize(PageSize.A4.Rotate());
+                        PdfWriter.GetInstance(document, stream);
+                        document.Open();
+                        PdfPTable table = new PdfPTable(4);
+
+                        PdfPCell cell = new PdfPCell(new Phrase(@"ывавыа", font));
+                        cell.Colspan = 4;
+                        cell.BorderWidth = 1;
+                        table.AddCell(cell);
+
+                        for (int i = 0; i < listView1.Items.Count; i++)
+                        {
+                            cell = new PdfPCell(new Phrase(listView1.Items[i].Text, font));
+                            cell.BorderWidth = 1;
+                            table.AddCell(cell);
+                            cell = new PdfPCell(new Phrase(listView1.Items[i].SubItems[1].Text, font));
+                            cell.BorderWidth = 1;
+                            table.AddCell(cell);
+                            cell = new PdfPCell(new Phrase(listView1.Items[i].SubItems[2].Text, font));
+                            cell.BorderWidth = 1;
+                            table.AddCell(cell);
+                            cell = new PdfPCell(new Phrase(listView1.Items[i].SubItems[3].Text, font));
+                            cell.BorderWidth = 1;
+                            table.AddCell(cell);
+                        }
+
+                        document.Add(table);
+                        document.Close();
+                        stream.Close();
+                    }
+
+                    Process.Start(exportFileName);
+                }
+            }
+            else
+            {
+                string ttf = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "ARIAL.TTF");
+                var baseFont = BaseFont.CreateFont(ttf, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+                var font = new iTextSharp.text.Font(baseFont, iTextSharp.text.Font.DEFAULTSIZE, iTextSharp.text.Font.NORMAL);
+
+                using (var document = new Document())
+                using (var stream = new FileStream(exportFileName, FileMode.Create))
+                {
+                    document.SetPageSize(PageSize.A4.Rotate());
+                    PdfWriter.GetInstance(document, stream);
+                    document.Open();
+                    PdfPTable table = new PdfPTable(4);
+
+                    PdfPCell cell = new PdfPCell(new Phrase(@"ывавыа", font));
+                    cell.Colspan = 4;
+                    cell.BorderWidth = 1;
+                    table.AddCell(cell);
+
+                    for (int i = 0; i < listView1.Items.Count; i++)
+                    {
+                        cell = new PdfPCell(new Phrase(listView1.Items[i].Text, font));
+                        cell.BorderWidth = 1;
+                        table.AddCell(cell);
+                        cell = new PdfPCell(new Phrase(listView1.Items[i].SubItems[1].Text, font));
+                        cell.BorderWidth = 1;
+                        table.AddCell(cell);
+                        cell = new PdfPCell(new Phrase(listView1.Items[i].SubItems[2].Text, font));
+                        cell.BorderWidth = 1;
+                        table.AddCell(cell);
+                        cell = new PdfPCell(new Phrase(listView1.Items[i].SubItems[3].Text, font));
+                        cell.BorderWidth = 1;
+                        table.AddCell(cell);
+                    }
+
+                    document.Add(table);
+                    document.Close();
+                    stream.Close();
+                }
+
+                Process.Start(exportFileName);        
+            }
         }
 
         private void экспортВExcelToolStripMenuItem_Click(object sender, EventArgs e)
