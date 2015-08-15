@@ -20,5 +20,11 @@
     <Setting Name="TimeBetweenBackups" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="PositionLat" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">49.8240914</Value>
+    </Setting>
+    <Setting Name="PositionLng" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">34.5370183</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

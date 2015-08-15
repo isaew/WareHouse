@@ -27,8 +27,11 @@ namespace WareHouseRelic
         {
             if (textBox1.Text != "")
             {
+                double lat = gMapControl1.Position.Lat;
+                double lng = gMapControl1.Position.Lng;
+
                 ClassCoins c = new ClassCoins();
-                c.AddNewCoin(textBox1.Text, textBox2.Text, comboBox1.Text, textBox3.Text);
+                c.AddNewCoin(textBox1.Text, textBox2.Text, comboBox1.Text, textBox3.Text, pictureBox1.Image, pictureBox2.Image);
 
                 Form1 main = this.Owner as Form1;
                 if (main != null)
@@ -86,9 +89,6 @@ namespace WareHouseRelic
                 }
                 pictureBox1.Image = FullSizeImage.GetThumbnailImage(NewWidth, NewHeight, null, IntPtr.Zero);
                 FullSizeImage.Dispose();
-                ///////////////////////////////////
-
-
             }
         }
 
@@ -117,6 +117,18 @@ namespace WareHouseRelic
                 pictureBox2.Image = FullSizeImage.GetThumbnailImage(NewWidth, NewHeight, null, IntPtr.Zero);
                 FullSizeImage.Dispose();
             }
+        }
+
+        private void FormAddCoin_Load(object sender, EventArgs e)
+        {
+            gMapControl1.MapProvider = GMap.NET.MapProviders.GMapProviders.YandexSatelliteMap;
+            gMapControl1.Position = new GMap.NET.PointLatLng(Properties.Settings.Default.PositionLat, Properties.Settings.Default.PositionLng);
+            gMapControl1.DragButton = MouseButtons.Left;
+            gMapControl1.NegativeMode = false;
+            gMapControl1.PolygonsEnabled = true;
+            gMapControl1.ShowTileGridLines = false;
+
+            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
         }
     }
 }

@@ -93,5 +93,29 @@ namespace WareHouseRelic.Properties {
                 this["TimeBetweenBackups"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("49.8240914")]
+        public double PositionLat {
+            get {
+                return ((double)(this["PositionLat"]));
+            }
+            set {
+                this["PositionLat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("34.5370183")]
+        public double PositionLng {
+            get {
+                return ((double)(this["PositionLng"]));
+            }
+            set {
+                this["PositionLng"] = value;
+            }
+        }
     }
 }

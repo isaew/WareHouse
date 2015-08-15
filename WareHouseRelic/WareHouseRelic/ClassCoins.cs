@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SQLite;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,22 +75,39 @@ namespace WareHouseRelic
         /// <param name="age">Год чеканки</param>
         /// <param name="typeOfMetal">Метал монеты</param>
         /// <param name="letters">Буквенное обозначение монетного двора</param>
-        public void AddNewCoin(string name, string year, string typeOfMetal, string letters)
+        public void AddNewCoin(string name, string year, string typeOfMetal, string letters, Image img1, Image img2)
         {
             string databaseName = Properties.Settings.Default.PathDatabase;
             string queryString;
 
             if (year == "")
             {
-                queryString = "INSERT INTO 'example' ('name', 'year', 'type', 'letters') VALUES ('" + name + "', null, '" + typeOfMetal + "', '" + letters + "');";
+                queryString = "INSERT INTO 'example' ('name', 'year', 'type', 'letters', 'image1', 'image2') VALUES ('" + name + "', null, '" + typeOfMetal + "', '" + letters + "', @0, @1);";
             }
             else
             {
-                queryString = "INSERT INTO 'example' ('name', 'year', 'type', 'letters') VALUES ('" + name + "', '" + year + "', '" + typeOfMetal + "', '" + letters + "');";
-            }
+                queryString = "INSERT INTO 'example' ('name', 'year', 'type', 'letters', 'image1', 'image2') VALUES ('" + name + "', '" + year + "', '" + typeOfMetal + "', '" + letters + "', @0, @1);";
+            }      
 
             SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
             SQLiteCommand command = new SQLiteCommand(queryString, connection);
+
+                Image photo = new Bitmap(img1);
+                MemoryStream ms = new MemoryStream();
+                photo.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                byte[] pic = ms.ToArray();
+                SQLiteParameter param = new SQLiteParameter("@0", System.Data.DbType.Binary);
+                param.Value = pic;
+                command.Parameters.Add(param);
+                ///
+                photo = new Bitmap(img2);
+                ms = new MemoryStream();
+                photo.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                pic = ms.ToArray();
+                param = new SQLiteParameter("@1", System.Data.DbType.Binary);
+                param.Value = pic;
+                command.Parameters.Add(param);
+                
 
             connection.Open();
             command.ExecuteNonQuery();
@@ -102,24 +121,42 @@ namespace WareHouseRelic
         /// <param name="year">Год чеканки</param>
         /// <param name="typeOfMetal">Метал монеты</param>
         /// <param name="letters">Буквенное обозначение монетного двора</param>
-        public void EditCoin(string name, string year, string typeOfMetal, string letters, int id)
+        public void EditCoin(string name, string year, string typeOfMetal, string letters, int id, Image img1, Image img2)
         {
-            //string databaseName = @"..\..\cyber1.db";
             string databaseName = Properties.Settings.Default.PathDatabase;
             string queryString;
 
             if (year == "")
             {
-                queryString = "update example set name = '" + name + "' where id = " + id + "; update example set year = null where id = " + id + "; update example set type = '" + typeOfMetal + "' where id = " + id + "; update example set letters = '" + letters + "' where id = " + id + ";";
+                //queryString = "update example set name = '" + name + "' where id = " + id + "; update example set year = null where id = " + id + "; update example set type = '" + typeOfMetal + "' where id = " + id + "; update example set letters = '" + letters + "' where id = " + id + ";";
+                queryString = "update example set name = '" + name + "' where id = " + id + "; update example set year = null where id = " + id + "; update example set type = '" + typeOfMetal + "' where id = " + id + "; update example set letters = '" + letters + "' where id = " + id + "; update example set image1 = @0 where id = " + id + "; update example set image2 = @1 where id = " + id + ";";
             }
             else
             {
-                queryString = "update example set name = '" + name + "' where id = " + id + "; update example set year = '" + year + "' where id = " + id + "; update example set type = '" + typeOfMetal + "' where id = " + id + "; update example set letters = '" + letters + "' where id = " + id + ";";
+                //queryString = "update example set name = '" + name + "' where id = " + id + "; update example set year = '" + year + "' where id = " + id + "; update example set type = '" + typeOfMetal + "' where id = " + id + "; update example set letters = '" + letters + "' where id = " + id + ";";
+                queryString = "update example set name = '" + name + "' where id = " + id + "; update example set year = null where id = " + id + "; update example set type = '" + typeOfMetal + "' where id = " + id + "; update example set letters = '" + letters + "' where id = " + id + "; update example set image1 = @0 where id = " + id + "; update example set image2 = @1 where id = " + id + ";";
             }
 
             SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
             connection.Open();
             SQLiteCommand command = new SQLiteCommand(queryString, connection);
+
+            Image photo = new Bitmap(img1);
+            MemoryStream ms = new MemoryStream();
+            photo.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            byte[] pic = ms.ToArray();
+            SQLiteParameter param = new SQLiteParameter("@0", System.Data.DbType.Binary);
+            param.Value = pic;
+            command.Parameters.Add(param);
+            ///
+            photo = new Bitmap(img2);
+            ms = new MemoryStream();
+            photo.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            pic = ms.ToArray();
+            param = new SQLiteParameter("@1", System.Data.DbType.Binary);
+            param.Value = pic;
+            command.Parameters.Add(param);
+
             command.ExecuteNonQuery();
             connection.Close();
         }
@@ -131,7 +168,6 @@ namespace WareHouseRelic
         public void DeleteCoin(int id)
         {
             string databaseName = Properties.Settings.Default.PathDatabase;
-            //string databaseName = @"..\..\cyber1.db";
             string queryString = "delete from example where Id = '" + id + "';";
 
             SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
@@ -150,8 +186,7 @@ namespace WareHouseRelic
             lv.Items.Clear();
 
             string databaseName = Properties.Settings.Default.PathDatabase;
-            //string databaseName = @"..\..\cyber1.db";
-            string queryString = "SELECT * FROM 'example';";
+            string queryString = "SELECT * FROM example;";
 
             SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
             connection.Open();
@@ -211,10 +246,41 @@ namespace WareHouseRelic
             connection.Dispose();
         }
 
+        public void Getting(ListView lv, PictureBox pb1, PictureBox pb2)
+        {
+            string query = "SELECT image1, image2 FROM example WHERE ID='" + lv.Items[lv.SelectedIndices[0]].SubItems[4].Text + "';";
+            string databaseName = Properties.Settings.Default.PathDatabase;
+
+            SQLiteConnection con = new SQLiteConnection(string.Format("Data Source={0};", databaseName));
+            SQLiteCommand cmd = new SQLiteCommand(query, con);
+            con.Open();
+            try
+            {
+                IDataReader rdr = cmd.ExecuteReader();
+                try
+                {
+                    while (rdr.Read())
+                    {
+                        byte[] pic = (System.Byte[])rdr[0];
+                        MemoryStream ms = new MemoryStream(pic, 0, pic.Length);
+                        ms.Write(pic, 0, pic.Length);
+                        pb1.Image = new Bitmap(ms);
+
+                        pic = (System.Byte[])rdr[1];
+                        ms = new MemoryStream(pic, 0, pic.Length);
+                        ms.Write(pic, 0, pic.Length);
+                        pb2.Image = new Bitmap(ms);
+                    }
+                }
+                catch (Exception exc) { MessageBox.Show(exc.Message); }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            con.Close();
+        }
+
         public string GettingStatistics(string queryString)
         {
             string databaseName = Properties.Settings.Default.PathDatabase;
-            //string queryString = "SELECT COUNT(id) FROM 'example';";
             string resulQuery = "0";
 
             SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", databaseName));

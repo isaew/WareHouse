@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.Diagnostics;
+using System.Data.SQLite;
 
 namespace WareHouseRelic
 {
@@ -24,12 +25,11 @@ namespace WareHouseRelic
         private void Form1_Load(object sender, EventArgs e)
         {
             gMapControl1.DragButton = MouseButtons.Left;
-            gMapControl1.MapProvider = GMap.NET.MapProviders.GMapProviders.GoogleMap;
+            gMapControl1.MapProvider = GMap.NET.MapProviders.GMapProviders.YandexSatelliteMap;
             gMapControl1.Position = new GMap.NET.PointLatLng(49.8240914, 34.5370183);
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
             
             treeView1.TopNode.Expand(); //Розвертывание первого узла
-
             ClassCoins c = new ClassCoins(); //Выгрузка БД в основное окно программы
             c.Getting(listView1);            //
 
@@ -302,7 +302,7 @@ namespace WareHouseRelic
 
         private void просмотрСправкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void отправитьОтзывToolStripMenuItem_Click(object sender, EventArgs e)
@@ -363,7 +363,10 @@ namespace WareHouseRelic
         //Обрамотчик окна карты
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
-
+            FormMap fMap = new FormMap();
+            fMap.StartPosition = FormStartPosition.CenterParent;
+            fMap.Owner = this;
+            fMap.ShowDialog();
         }
         #endregion
 
@@ -373,6 +376,59 @@ namespace WareHouseRelic
             ClassCoins c = new ClassCoins();
             c.Getting(listView1, Convert.ToString(e.Node.Tag));
         }
-        #endregion
+
+        private void listView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (listView1.SelectedIndices.Count > 0)
+            {
+                ClassCoins c = new ClassCoins();
+                c.Getting(listView1, pictureBox1, pictureBox2);
+            }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.N))
+            {
+                toolStripButton1.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.Delete))
+            {
+                toolStripButton3.PerformClick();
+                return true;
+            }
+
+            if (keyData == (Keys.Control | Keys.M))
+            {
+                toolStripButton5.PerformClick();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+        #endregion     
+
+        private void toolStripTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            ListViewItem foundItem = listView1.FindItemWithText(toolStripTextBox1.Text);
+            if (foundItem != null)
+            {
+
+
+
+
+
+                /*foundItem.BackColor = Color.Aqua;
+                listView1.TopItem = foundItem;
+                toolStripTextBox1.Focus();*/
+
+                //foundItem.Focused = true;
+                foundItem.Selected = true;           
+                //foundItem.EnsureVisible();
+                listView1.Focus();
+
+            }
+        }
     }
 }
